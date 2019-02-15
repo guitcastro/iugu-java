@@ -35,6 +35,14 @@ public class SubscriptionService {
 
         int ResponseStatus = response.getStatus();
         String ResponseText = null;
+        
+        if (response.hasEntity()) {
+            response.bufferEntity();
+            responseText = response.readEntity(String.class);
+            if (responseText != null && responseText.contains("\"Falha na cobran\\u00e7a\"")) {
+                throw new IuguException("Error creating subscription!", responseStatus, responseText);
+            }
+        }        
 
         if (ResponseStatus == 200) {
             return response.readEntity(SubscriptionResponse.class);
