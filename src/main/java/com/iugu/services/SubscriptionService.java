@@ -34,7 +34,7 @@ public class SubscriptionService {
         Response response = this.iugu.getNewClient().target(CREATE_URL).request().post(Entity.entity(subscription, MediaType.APPLICATION_JSON));
 
         int responseStatus = response.getStatus();
-        String responseText;
+        String responseText = null;
         
         if (response.hasEntity()) {
             response.bufferEntity();
