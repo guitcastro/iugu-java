@@ -34,12 +34,13 @@ public class SubscriptionService {
         Response response = this.iugu.getNewClient().target(CREATE_URL).request().post(Entity.entity(subscription, MediaType.APPLICATION_JSON));
 
         int ResponseStatus = response.getStatus();
-        String ResponseText = null;
+        String responseText;
         
         if (response.hasEntity()) {
             response.bufferEntity();
             responseText = response.readEntity(String.class);
             if (responseText != null && responseText.contains("\"Falha na cobran\\u00e7a\"")) {
+                response.close();
                 throw new IuguException("Error creating subscription!", responseStatus, responseText);
             }
         }        
@@ -50,12 +51,12 @@ public class SubscriptionService {
 
         // Error Happened
         if (response.hasEntity()) {
-            ResponseText = response.readEntity(String.class);
+            responseText = response.readEntity(String.class);
         }
 
         response.close();
 
-        throw new IuguException("Error creating subscription!", ResponseStatus, ResponseText);
+        throw new IuguException("Error creating subscription!", ResponseStatus, responseText);
     }
 
     public SubscriptionResponse find(String id) throws IuguException {
