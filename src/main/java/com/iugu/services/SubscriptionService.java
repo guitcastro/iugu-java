@@ -33,7 +33,7 @@ public class SubscriptionService {
     public SubscriptionResponse create(Subscription subscription) throws IuguException {
         Response response = this.iugu.getNewClient().target(CREATE_URL).request().post(Entity.entity(subscription, MediaType.APPLICATION_JSON));
 
-        int ResponseStatus = response.getStatus();
+        int responseStatus = response.getStatus();
         String responseText;
         
         if (response.hasEntity()) {
@@ -56,7 +56,7 @@ public class SubscriptionService {
 
         response.close();
 
-        throw new IuguException("Error creating subscription!", ResponseStatus, responseText);
+        throw new IuguException("Error creating subscription!", responseStatus, responseText);
     }
 
     public SubscriptionResponse find(String id) throws IuguException {
