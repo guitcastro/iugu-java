@@ -45,7 +45,7 @@ public class SubscriptionService {
             }
         }        
 
-        if (ResponseStatus == 200) {
+        if (responseStatus == 200) {
             return response.readEntity(SubscriptionResponse.class);
         }
 
