@@ -4,7 +4,7 @@
 
 ```
 IuguConfiguration iuguConfiguration = new IuguConfiguration("CLIENTTOKEN");
-InvoiceResponse response;
+InvoiceResponse response; 
 
 try {
 	response = new InvoiceService(iuguConfiguration).create(new Invoice("SOMEEMAIL@XXXX.XXXXX", new Date(), new Item("teste", 1, 100)));
